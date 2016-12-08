@@ -25,16 +25,6 @@ docker_opts: ""
 # SECURITY WARNING: 
 # Be aware that granted users can easily get full root access on the docker host system!
 docker_group_members: []
-# Flags for whether to install pip packages
-pip_install_pip: true
-pip_install_setuptools: true
-pip_install_docker_py: true
-pip_install_docker_compose: true
-# Versions for the python packages that are installed
-pip_version_pip: latest
-pip_version_setuptools: latest
-pip_version_docker_py: latest
-pip_version_docker_compose: latest
 
 # If this variable is set to true kernel updates and host restarts are permitted.
 # Warning: Use with caution in production environments.
@@ -56,3 +46,17 @@ install_kernel_extras: false
 # where an X/Unit desktop is actively being used. If you're not using an X/Unity on 12.04, you
 # won't need to enable this.
 install_xorg_pkgs: false
+
+pip_packages:
+  - { name: pip,
+      version: "{{ pip_version_pip | default(omit) }}",
+      install: "{{ pip_install_pip | default('yes') }}" }
+  - { name: setuptools,
+      version: "{{ pip_version_setuptools | default(omit) }}",
+      install: "{{ pip_install_setuptools | default('yes') }}" }
+  - { name: docker-py,
+      version: "{{ pip_version_docker_py | default(omit) }}",
+      install: "{{ pip_install_docker_py | default('yes') }}" }
+  - { name: docker-compose,
+      version: "{{ pip_version_docker_compose | default(omit) }}",
+      install: "{{ pip_install_docker_compose | default('yes') }}" }
